@@ -73,11 +73,13 @@ void execute_r_instruction(r_instruction *instruct){
     if (instruct->func == ADD_FUNC) {
         registers[instruct->rd] = registers[instruct->rs] + registers[instruct->rt];}
     if (instruct->func == SLL_FUNC) {
-        int32_t shiftamt = instruct->shamt;
-        registers[instruct->rd] = registers[instruct->rs] << shiftamt;}
+        int shiftamt = instruct->shamt;
+        int rt = registers[instruct->rt];
+        registers[instruct->rd] = rt << shiftamt;}
     if (instruct->func == SRA_FUNC) {
-        int32_t shiftamt = instruct->shamt;
-        registers[instruct->rd] = registers[instruct->rs] >> shiftamt;}
+        int shiftamt = instruct->shamt;
+        int rt = registers[instruct->rt];
+        registers[instruct->rd] = rt >> shiftamt;}
     if (instruct->func == SUB_FUNC) {
         registers[instruct->rd] = registers[instruct->rs] - registers[instruct->rt];}
     if (instruct->func == AND_FUNC) {
@@ -85,7 +87,7 @@ void execute_r_instruction(r_instruction *instruct){
     if (instruct->func == OR_FUNC) {
         registers[instruct->rd] = registers[instruct->rs] | registers[instruct->rt];}
     if (instruct->func == NOR_FUNC) {
-        registers[instruct->rd] = !(registers[instruct->rs]) & !(registers[instruct->rt]);}
+        registers[instruct->rd] = ~(registers[instruct->rs] | registers[instruct->rt]);}
 } // end execute_r_instruction() function 
 
 // ------------------------------------
