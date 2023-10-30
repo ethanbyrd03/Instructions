@@ -1,4 +1,4 @@
-// PID: _________
+// PID: 730481481
 // I pledge the COMP 211 honor code.
 #include <limits.h>
 #include <stdbool.h>
@@ -70,7 +70,20 @@ int main(){
 // Return:      None
 //
 void execute_r_instruction(r_instruction *instruct){
-    // TODO
+    if (instruct->func == ADD_FUNC) {
+        registers[instruct->rd] = registers[instruct->rs] + registers[instruct->rt];}
+    if (instruct->func == SLL_FUNC) {
+        registers[instruct->rd] = registers[instruct->rs] << (int)instruct->shamt;}
+    if (instruct->func == SRA_FUNC) {
+        registers[instruct->rd] = registers[instruct->rs] >> (int)instruct->shamt;}
+    if (instruct->func == SUB_FUNC) {
+        registers[instruct->rd] = registers[instruct->rs] - registers[instruct->rt];}
+    if (instruct->func == AND_FUNC) {
+        registers[instruct->rd] = registers[instruct->rs] & registers[instruct->rt];}
+    if (instruct->func == OR_FUNC) {
+        registers[instruct->rd] = registers[instruct->rs] | registers[instruct->rt];}
+    if (instruct->func == NOR_FUNC) {
+        registers[instruct->rd] = !(registers[instruct->rs] | registers[instruct->rt]);}
 } // end execute_r_instruction() function 
 
 // ------------------------------------
@@ -88,5 +101,13 @@ void execute_r_instruction(r_instruction *instruct){
 // Return:      None
 //
 void execute_i_instruction(i_instruction *instruct){
-    // TODO
+    if (instruct->opcode == ADDI_OPCODE) {
+        int32_t immediate = instruct->immediate;
+        registers[instruct->rt] = registers[instruct->rs] + immediate;}
+    if(instruct->opcode == ANDI_OPCODE) {
+        uint32_t immediate = instruct->immediate & 0xFFFF;
+        registers[instruct->rt] = registers[instruct->rs] & immediate;}
+    if(instruct->opcode == ORI_OPCODE) {
+        uint32_t immediate = instruct->immediate & 0xFFFF;
+        registers[instruct->rt] = registers[instruct->rs] | immediate;}
 } // end execute_i_instruction() function 
